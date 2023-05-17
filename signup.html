@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>sign up</title>
+   <link rel="stylesheet" href="/css/bootstrap.min.css">
+   <style>
+      body {
+        background-image: url("/img/Animated\ Shape.svg");
+        background-size: cover;
+      }
+    </style>
+</head>
+<body>
+   <div class="container mt-5">
+      <div class="row justify-content-center">
+         <div class="col-lg-4 col-md-6">
+            <div class="border border-success p-4">
+               <input type="text" id="in1" class="form-control mb-2" placeholder="Enter your name">
+               <input type="text" id="in2" class="form-control mb-2" placeholder="Enter a password">
+               <span id="s1" class="text-danger"></span>
+               <button class="btn btn-primary mt-2" onclick="add()" >sign up</button>
+            </div>
+         </div>
+      </div>
+
+      
+
+      
+   </div>
+
+   <script>
+      var users = [
+         { username: 'mourad', password: 'berradi' },
+         { username: 'saad', password: 'berradi' }
+      ]
+
+      function add() {
+         var userNameValue = document.getElementById('in1').value;
+         var passValue = document.getElementById('in2').value;
+
+         if (passValue.length < 8) {
+            document.getElementById('s1').innerHTML = 'Password must contain 8 characters';
+         } else {
+            var user = {};
+            user.username = userNameValue;
+            user.password = passValue;
+            users.push(user);
+            console.log(users);
+            window.location.assign("index.html");
+         }
+      }
+
+      function show() {
+         var tableBody = document.querySelector('#table1 tbody');
+         tableBody.innerHTML = '';
+
+         for (var i = 0; i < users.length; i++) {
+            var tr = document.createElement('tr');
+            var usernameValue = users[i].username;
+            var passValue = users[i].password;
+
+            var td1 = document.createElement('td');
+            td1.textContent = usernameValue;
+
+            var td2 = document.createElement('td');
+            td2.textContent = passValue;
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+
+            tableBody.appendChild(tr);
+         }
+      }
+
+      function showPass() {
+         var passInput = document.getElementById('in4');
+
+         if (passInput.type === 'password') {
+            passInput.type = 'text';
+         } else if (passInput.type === 'text') {
+            passInput.type = 'password';
+         }
+      }
+
+      function login() {
+         var userValue = document.getElementById('in3').value;
+         var passValue = document.getElementById('in4').value;
+
+         if (userValue === '') {
+            document.getElementById('s2').innerHTML = 'Username must be filled out';
+            return false;
+         } else if (passValue === '') {
+            document.getElementById('s2').innerHTML = 'Password must be filled out';
+            return false;
+         }
+
+         for (var i = 0; i < users.length; i++) {
+            if (userValue === users[i].username && passValue === users[i].password) {
+               return true;
+            }
+         }
+
+         document.getElementById('s2').innerHTML = 'Username and password do not match';
+         return false;
+      }
+   </script>
+</body>
+</html>
